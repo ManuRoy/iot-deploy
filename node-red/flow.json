@@ -1,0 +1,107 @@
+[
+    {
+        "id": "bdf4c11c1aaee942",
+        "type": "inject",
+        "z": "f254f1cbd8a32d4a",
+        "name": "Send Sample Data",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 290,
+        "y": 240,
+        "wires": [
+            [
+                "ba98d468aa5220b9"
+            ]
+        ]
+    },
+    {
+        "id": "ba98d468aa5220b9",
+        "type": "function",
+        "z": "f254f1cbd8a32d4a",
+        "name": "Prepare Payload",
+        "func": "msg.payload = {\n    deviceId: \"sensor-001\",\n    temperature: 88.5\n};\nmsg.topic = \"temperature\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 240,
+        "wires": [
+            [
+                "0a1841de4ed13a40",
+                "d957ad338d708341"
+            ]
+        ]
+    },
+    {
+        "id": "0a1841de4ed13a40",
+        "type": "mqtt out",
+        "z": "f254f1cbd8a32d4a",
+        "name": "Send to MQTT",
+        "topic": "temperature",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker",
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d957ad338d708341",
+        "type": "debug",
+        "z": "f254f1cbd8a32d4a",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "mqtt_broker",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

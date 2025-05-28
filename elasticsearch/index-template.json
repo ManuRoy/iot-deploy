@@ -1,0 +1,12 @@
+{
+  "index_patterns": ["sensor-data-*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "deviceId": { "type": "keyword" },
+        "temperature": { "type": "float" },
+        "@timestamp": { "type": "date" }
+      }
+    }
+  }
+}
