@@ -16,7 +16,10 @@ pipeline {
 
         stage('Verify Index') {
             steps {
-                sh 'curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b https://localhost:9200/_cat/indices?v'
+                sh '''
+                    curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b https://localhost:9200/_cat/indices?v
+                '''
             }
         }
     }
+}
