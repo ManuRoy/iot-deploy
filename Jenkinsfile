@@ -47,7 +47,7 @@ pipeline {
 
         stage('Verify Index Created') {
             steps {
-                sh 'curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b http://localhost:9200/_cat/indices?v'
+                sh 'curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b https://localhost:9200/_cat/indices?v'
             }
         }
     }
