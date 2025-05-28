@@ -8,11 +8,14 @@ pipeline {
             }
         }
 
-        stage('Bind RabbitMQ Topic to Queue') {
+        stage('Create RabbitMQ Queue and Bind Topic') {
             steps {
                 sh '''
-                # Ensure rabbitmqadmin is installed and configured
-                rabbitmqadmin declare binding source=amq.topic destination_type=queue destination=rabbit-queue routing_key=temperature
+                # Create queue
+                rabbitmqadmin -u guest -p guest declare queue name=rabbit-queue durable=true
+
+                # Bind topic 'temperature' to the queue
+                rabbitmqadmin -u guest -p guest declare binding source=amq.topic destination_type=queue destination=rabbit-queue routing_key=temperature
                 '''
             }
         }
@@ -38,14 +41,13 @@ pipeline {
 
         stage('Inject Sample Data via Node-RED') {
             steps {
-                // Trigger the inject node programmatically
                 sh 'curl -X POST http://localhost:1880/inject/bdf4c11c1aaee942'
             }
         }
 
         stage('Verify Index Created') {
             steps {
-                sh 'curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b https://localhost:9200/_cat/indices?v'
+                sh 'curl -k -u elastic:PlnLz35OqHQ1UAOLqo8b http://localhost:9200/_cat/indices?v'
             }
         }
     }
